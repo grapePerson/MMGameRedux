@@ -5,7 +5,7 @@ const initialState = {
   status: 'guest'
 };
 
-export default function field(state = initialState,action) {
+export default function registrationForm(state = initialState,action) {
   switch (action.type) {
     case START_GAME:
       return {gameStage : action.payload.gameStage, status : action.payload.status};

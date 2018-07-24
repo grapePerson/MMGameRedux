@@ -40,9 +40,9 @@ export default class RegistrationForm extends Component {
       <form>
         <div>
           <label htmlFor="userName">User name</label>
-          <input type="text" ref="userName" placeholder="от 3 до 8 символов" />
+          <input type="text" ref="userName" id="userName" placeholder="от 3 до 8 символов" />
           <label htmlFor="email">Email</label>
-          <input type="text" ref="email"  placeholder="email"/>
+          <input type="text" ref="email" id="email" placeholder="email"/>
           <input type="button" value="Поехали" onClick = {this.takeFormDataAndStart.bind(this)}/>
           <p>Пожалуйста введите ваши данные</p>
         </div>

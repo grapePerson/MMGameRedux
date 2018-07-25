@@ -4,9 +4,10 @@ import shuffle from '../../utils/index';
 
 export default class Game extends Component {
   componentWillMount() {
+    console.log(1);
     const { cardsOrder } = this.props;
     if(cardsOrder.length < 1) {
-      this.props.saveCardsOrder(this.returnMixedCards())
+      this.props.saveCardsOrder(this.createArrList());
     }
   }
   createDuplicateOfCards() {
@@ -30,34 +31,103 @@ export default class Game extends Component {
     });
     return shuffle(cards);
   }
-  createList = () => {
-  let ul = []
-  const { gameDifficult } = this.props;
-  let difficult = gameDifficult.split(' ');
-  // Outer loop to create parent
-  for (let i = 0; i < difficult[2]; i++) {
-    let children = []
-    //Inner loop to create children
-    for (let j = 0; j < 5; j++) {
-      children.push(<td>{`Column ${j + 1}`}</td>)
+  createArrList() {
+    let ul = []
+    let cards = this.returnMixedCards();
+    const { gameDifficult } = this.props;
+    let difficult = gameDifficult.split(' ');
+    for (let i = 0; i < difficult[2]; i++) {
+      let li = []
+      for (let j = 0; j < difficult[0]; j++) {
+        let imgUrl = cards.pop();
+        li.push({url: imgUrl, cardStyle: "card-back-side", liStyle: "card-flipper", id:`${imgUrl}${i}${j}`, checked: false} )
+      }
+      ul.push(li)
     }
-    //Create the parent and add the children
-    table.push(<tr>{children}</tr>)
+    return ul
   }
-  return table
-}
+  checkClickedCard(ev) {
+    if(ev.target.className==="card-front-side" || ev.target.className==="card-shirt"){
+      const { checkedCard, addToCheckedCard, clearCheckedCard, cardsOrder, saveCardsOrder, cards, userCanClickOn, userCanClickOff  } = this.props;
+      let cardUrl =  ev.target.getAttribute('urlcard');
+      let cardId =  ev.target.id;
+      if(cardId !== checkedCard.id && checkedCard.userCanClick){
+         if(checkedCard.url === ""){
+           cardsOrder.map((elem) => {
+             elem.map((element) => {
+               if(element.id === cardId) {
+                  element.liStyle += " do-flipp";
+               }
+             })
+           });
+           addToCheckedCard(cardUrl, cardId)
+         }else{
+           userCanClickOff();
+           cardsOrder.map((elem) => {
+             elem.map((element) => {
+               if(element.id === cardId) {
+                  element.liStyle += " do-flipp";
+               }
+             })
+           });
+
+           this.forceUpdate()
+           // i have to rework it on async await
+           setTimeout(
+             (ev) => {
+               if(checkedCard.url === cardUrl) {
+                 cardsOrder.map((elem) => {
+                   elem.map((element) => {
+                     if(element.url === checkedCard.url) {
+                        console.log("меняю стиль");
+                        element.cardStyle += " hide-card";
+                     }
+                   })
+                 });
+                clearCheckedCard();
+                userCanClickOn();
+               }else {
+                 cardsOrder.map((elem) => {
+                   elem.map((element) => {
+                     if(element.url === checkedCard.url || element.url === cardUrl) {
+                        element.liStyle = "card-flipper";
+                     }
+                   })
+                 });
+                clearCheckedCard();
+                userCanClickOn();
+               }
+             }
+             , 1000);
+         }
+      }
+    }
+  }
+
   render() {
-    const { cardsOrder } = this.props;
+    const { cardsOrder, checkedShirt } = this.props;
     return(
-      <article>
-        <ul>
-          {
-                // cardsOrder.map((elem,i)=> {
-                //   //выводить правельный
-                //   return <img src = { elem } key = { i } onClick = { (ev) => {console.log(ev.target)} }/>
-                // })
-          }
-        </ul>
+      <article onClick = { (ev) => { this.checkClickedCard(ev) } }>
+        {
+          cardsOrder.map((elem,i) => {
+            return (
+              <ul key = { i } className = "images-list">
+                {
+                  elem.map((element,j) => {
+                    return (
+                      <li key = { `${i}${j}` } className = { element.liStyle }>
+                        <div className = "card-front-side" urlcard ={ element.url } id = { element.id }></div>
+                        <img src = { checkedShirt } className = "card-shirt"   urlcard ={ element.url } id = { element.id } />
+                        <img src = { element.url } className = { element.cardStyle }  />
+                      </li>
+                      )
+                    }
+                  )
+                }
+              </ul>
+            )
+          })
+        }
       </article>
     )
   }

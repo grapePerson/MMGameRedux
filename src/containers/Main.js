@@ -15,6 +15,7 @@ import Top  from '../components/top/Top';
 import { getTopScore } from '../actions/top';
 import { checkUserData } from '../actions/registrationForm';
 import { saveCardsOrder } from '../actions/game';
+import { addToCheckedCard, clearCheckedCard, userCanClickOn, userCanClickOff } from '../actions/checkedCard';
 import { changeShirt } from '../actions/cardShirt';
 import { setDifficlt } from '../actions/difficult';
 
@@ -24,7 +25,8 @@ class Main extends Component {
     const { getTopScore, scoreStatus, topPlayers, checkUserData,
             userStatus, cards, saveCardsOrder, checkedShirt,
             allShirts, changeShirt, setDifficlt, gameDifficult,
-            allDifficults, cardsOrder
+            allDifficults, cardsOrder, checkedCard, addToCheckedCard,
+            clearCheckedCard, userCanClickOn, userCanClickOff
            } = this.props;
     return(
       <main>
@@ -34,10 +36,14 @@ class Main extends Component {
           <Route  path='/registration' render={props => <RegistrationForm checkUserData = { checkUserData } />}/>
           <Route  path='/game' render={props => (
             (userStatus==='guest') ? (<Redirect to="/registration"/>) :
-            (<Game cards = { cards } saveCardsOrder = { saveCardsOrder } gameDifficult = { gameDifficult } cardsOrder = { cardsOrder }/>))}/>
+            (<Game cards = { cards } saveCardsOrder = { saveCardsOrder } gameDifficult = { gameDifficult }
+             cardsOrder = { cardsOrder } checkedShirt = {checkedShirt} checkedCard = { checkedCard }
+             addToCheckedCard = { addToCheckedCard } clearCheckedCard = { clearCheckedCard }
+             userCanClickOn = { userCanClickOn } userCanClickOff = { userCanClickOff } />))}/>
           <Route  path='/difficult' render={props => (
             (userStatus==='guest') ? (<Redirect to="/registration"/>) :
-            (<DifficultSettings setDifficlt = { setDifficlt } gameDifficult = { gameDifficult } allDifficults = { allDifficults }/>))}/>
+            (<DifficultSettings setDifficlt = { setDifficlt } gameDifficult = { gameDifficult }
+              allDifficults = { allDifficults } clearCheckedCard = { clearCheckedCard }/>))}/>
           <Route  path='/style' render={props => (
             (userStatus==='guest') ? (<Redirect to="/registration"/>) :
             (<CardShirt allShirts = {allShirts} checkedShirt = {checkedShirt}  changeShirt = {changeShirt}/>))}/>
@@ -50,6 +56,7 @@ class Main extends Component {
 Main.propTypes = {
     scoreStatus: PropTypes.string.isRequired,
     userStatus: PropTypes.string.isRequired,
+    checkedCard: PropTypes.object.isRequired,
     gameDifficult: PropTypes.string.isRequired,
     checkedShirt: PropTypes.string.isRequired,
     getTopScore: PropTypes.func.isRequired,
@@ -57,6 +64,8 @@ Main.propTypes = {
     saveCardsOrder: PropTypes.func.isRequired,
     changeShirt: PropTypes.func.isRequired,
     setDifficlt: PropTypes.func.isRequired,
+    userCanClickOn: PropTypes.func.isRequired,
+    userCanClickOff: PropTypes.func.isRequired,
     cards: PropTypes.array.isRequired,
     topPlayers: PropTypes.array,
     allShirts: PropTypes.array,
@@ -70,22 +79,17 @@ export default withRouter(connect(
                 userStatus: state.registrationForm.status, cards: state.game.cards,
                 checkedShirt: state.cardShirt.checkedShirt, allShirts: state.cardShirt.allShirts,
                 gameDifficult: state.difficult.gameDifficult, allDifficults : state.difficult.allDifficults,
-                cardsOrder: state.game.cardsOrder
+                cardsOrder: state.game.cardsOrder, checkedCard: state.checkedCard
               }),
     {
       getTopScore,
       checkUserData,
       saveCardsOrder,
       changeShirt,
-      setDifficlt
+      setDifficlt,
+      addToCheckedCard,
+      clearCheckedCard,
+      userCanClickOn,
+      userCanClickOff
     }
 )(Main));
-
-/*
-
-    <Field/>
-        <SoundController/>
-        <WinnerText/>
-        <CardShirt/>
-        <ErrorMessage/>
-*/

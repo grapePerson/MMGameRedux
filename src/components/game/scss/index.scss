@@ -1,0 +1,60 @@
+.images-list {
+  display: flex;
+  flex-direction: row;
+  li {
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    margin: 5px;
+    img {
+      display: block;
+      border-radius: 20px;
+    }
+  }
+}
+
+.card-front-side {
+  background: #121028;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 20px;
+  border: 1px solid darkslategrey;
+}
+
+.card-shirt {
+  backface-visibility: hidden;
+  z-index: 3;
+}
+
+.card-flipper {
+  transition: transform 1s;
+  transform-style: preserve-3d;
+}
+
+.card-back-side, .card-front-side, .card-flipper {
+  width: 170px;
+  height: 250px;
+}
+
+.card-back-side {
+  transform: rotateY(180deg);
+}
+
+.card-front-side, .card-back-side {
+  backface-visibility: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.do-flipp {
+  transform: rotateY(180deg);
+}
+.hide-card{
+  opacity: 0;
+  transition: opacity 1s;
+}

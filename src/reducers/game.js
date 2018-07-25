@@ -11,9 +11,9 @@ const initialState = {
 };
 
 export default function game(state = initialState,action) {
-  if(action.type === SAVE_CARDS_ORDER){
+  if(action.type === SAVE_CARDS_ORDER) {
     return ({ ...state, cardsOrder: action.payload})
-  }else{
-    return state
+  }else {
+    return state;
   }
 }

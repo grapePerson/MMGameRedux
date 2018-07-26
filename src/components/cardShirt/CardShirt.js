@@ -10,7 +10,7 @@ export default class CardShirt extends Component {
           {
             allShirts.map((elem,i) => (
                 <li key ={ i } >
-                  <img src={elem} onClick = { ()=>{ changeShirt(elem) } }/>
+                  <img src={elem.url} onClick = { ()=>{ changeShirt(elem.url) } }/>
                 </li>
               )
             )

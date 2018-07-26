@@ -1,7 +1,7 @@
-import { SET_DIFFICULT } from "../constants/difficult";
+import { SET_DIFFICULT, INITIAL_DIFFICULT } from "../constants/difficult";
 
 const initialState ={
-  gameDifficult : '8 x 3',
+  gameDifficult : INITIAL_DIFFICULT,
   allDifficults : ['5 x 2', '6 x 3', '8 x 3']
 }
 

@@ -1,0 +1,36 @@
+%flex{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.preloader-top{
+  width: 100%;
+  height: 100%;
+  @extend %flex;
+}
+.top-score{
+  width: 100%;
+  height: 100%;
+  @extend %flex;
+  flex-direction: column;
+  h2{
+    margin-bottom: 20px;
+  }
+  ul{
+    height: 80%;
+    width: 30%;
+    min-height: 620px;
+    min-width: 500px;
+    border-radius: 20px;
+    @extend %flex;
+    flex-direction: column;
+    background: black;
+    color: white;
+    li{
+      width: 100%;
+      @extend %flex;
+      flex-grow: 1;
+      border-bottom: 1px solid white;
+    }
+  }
+}

@@ -1,3 +1,17 @@
+%flex{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.game-container{
+  width: 100%;
+  height: 100%;
+  @extend %flex;
+  article{
+    padding: 20px;
+    border-radius: 20px;
+  }
+}
 .images-list {
   display: flex;
   flex-direction: row;
@@ -16,7 +30,7 @@
 }
 
 .card-front-side {
-  background: #121028;
+  background: black;
   z-index: 2;
   display: flex;
   align-items: center;

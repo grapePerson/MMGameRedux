@@ -1,2 +1,24 @@
 @import "./normalize.scss";
+@font-face{
+font-family: 'CupheadMemphisMedium';
+src: url('./fonts/CupheadMemphisMedium.ttf');
+font-weight: normal;
+font-style: normal;
+}
+.root {
+  height: 100%;
+  width: 100%;
+  font-family: "CupheadMemphisMedium";
+}
+@import "containers/header/scss/index.scss";
+@import "containers/main/scss/index.scss";
+@import "components/home/scss/index.scss";
+@import "components/top/scss/index.scss";
+@import "components/registrationForm/scss/index.scss";
+@import "components/login/scss/index.scss";
 @import "components/game/scss/index.scss";
+@import "components/difficultSettings/scss/index.scss";
+@import "components/cardShirt/scss/index.scss";
+@import "components/audioController/scss/index.scss";
+@import "components/errorMessage/scss/index.scss";
+@import "components/winnerText/scss/index.scss";

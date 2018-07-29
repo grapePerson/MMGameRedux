@@ -18,8 +18,8 @@ export default class Top extends Component {
           }
         });
         return (
-          <section>
-            <p>Топ 10</p>
+          <section className = "top-score">
+            <h2>Топ 10</h2>
             <ul>
             { liItem }
             </ul>
@@ -27,7 +27,9 @@ export default class Top extends Component {
         )
       }else{
         return(
-          <div>Загрузка</div>
+          <section className = "preloader-top">
+            <img src = "/images/loader.gif" />
+          </section>
         )
     }
   }

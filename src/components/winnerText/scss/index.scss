@@ -1,0 +1,19 @@
+%flex{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.winner-text-container{
+  height: 100%;
+  width: 100%;
+  @extend %flex;
+  article{
+    height: 50%;
+    width: 50%;
+    background: black;
+    color: white;
+    border-radius: 20px;
+    @extend %flex;
+    flex-direction: column;
+  }
+}

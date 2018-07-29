@@ -1,4 +1,7 @@
 import { TOP_SCORE_REQUEST, TOP_SCORE_SUCCESS, TOP_SCORE_FAILED, CLOSE_SCORE } from "../constants/top";
+import { importAll } from '../utils/index';
+
+let imagesArr = importAll(require.context('../components/top/images', false, /\.(gif)$/));
 
 const initialState = {
   score:{status:'empty',topPlayers:[]}

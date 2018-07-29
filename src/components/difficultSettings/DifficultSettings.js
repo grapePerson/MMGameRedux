@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 
 export default class DifficultSettings extends Component {
+
   render() {
-    const { allDifficults, gameDifficult, setDifficlt, handOutCards, clearCheckedCard } = this.props;
+    const { allDifficults, gameDifficult, setDifficlt, handOutCards, clearCheckedCard, removeCardsTheme } = this.props;
     return(
-      <section>
+      <section className = "dificult-container">
+        <h2>Сложность</h2>
         <ul>
           {
             allDifficults.map((elem,i) => (
@@ -16,7 +18,7 @@ export default class DifficultSettings extends Component {
                       setDifficlt(ev.target.value);
                       handOutCards(ev.target.value);
                       clearCheckedCard();
-
+                      removeCardsTheme();
                     }
                   }
                 />
@@ -25,8 +27,8 @@ export default class DifficultSettings extends Component {
             ))
           }
         </ul>
-        <p>Сложность</p>
       </section>
     )
   }
+  
 }

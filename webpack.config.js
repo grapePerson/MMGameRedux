@@ -4,7 +4,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
   mode: 'development',
-  entry: ['./src/index.js'],
+  entry: ['babel-polyfill', './src/index.js'],
   output: {
     path: path.resolve(__dirname, 'public'),
     filename: 'bundle.js',
@@ -24,7 +24,7 @@ module.exports = {
         loader: 'babel-loader',
         options: {
           presets: ['env', 'react'],
-          plugins: ['transform-class-properties','transform-object-rest-spread']
+          plugins: ['transform-class-properties', 'transform-object-rest-spread', 'transform-async-to-generator']
         }
       },
       {
@@ -35,6 +35,28 @@ module.exports = {
                'css-loader',
                'sass-loader'
            ]
+     },
+     {
+       test: /\.(mp3|wav)$/,
+       use: [
+         {
+           loader: 'file-loader',
+           options: {
+              name: 'audio/[name].[ext]'
+           }
+         }
+       ]
+     },
+     {
+        test: /\.(eot|svg|ttf|woff|woff2)$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+               name: "fonts/[name].[ext]"
+            }
+          }
+        ]
      },
      {
        test: /\.(jpe?g|png|gif)$/i,

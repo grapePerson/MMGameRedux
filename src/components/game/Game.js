@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { importAll } from '../../utils/index';
-import shuffle from '../../utils/index';
+import {  pause } from '../../utils/index';
+import { ANIMATION_PAUSE } from "../../constants/game";
 
 export default class Game extends Component {
-  checkClickedCard (ev) {
-    const { addToCheckedCard, checkedCard, addFlipp, compareCards, clearCheckedCard, userCanClickOn, userCanClickOff, userCanClick} = this.props;
+
+  async checkClickedCard (ev) {
+    const { addToCheckedCard, checkedCard, addFlipp, compareCards, clearCheckedCard, userCanClickOn, userCanClickOff, userCanClick, checkCardsCount} = this.props;
     if(ev.target.className==="card-front-side" || ev.target.className==="card-shirt"){
       const cardUrl = ev.target.getAttribute('urlcard');
       const cardId = ev.target.id;
@@ -15,41 +16,52 @@ export default class Game extends Component {
         }else{
           addFlipp(cardId);
           userCanClickOff();
-          //i have to rework on asunc await
-          setTimeout(()=>{
-            compareCards(checkedCard, cardUrl, cardId);
-            clearCheckedCard();
-            userCanClickOn();
-          },1000)
+          await pause(ANIMATION_PAUSE);
+          compareCards(checkedCard, cardUrl, cardId);
+          clearCheckedCard();
+          userCanClickOn();
+          checkCardsCount();
         }
       }
     }
   }
+  componentDidUpdate() {
+    const { gameOver, redirectToWinner, playFile, playCardTheme } = this.props;
+    if(playFile){
+      let string = playFile.split("/")[2].split(".")[0];
+      playCardTheme(string);
+    }
+    if(gameOver) {
+       redirectToWinner();
+    }
+  }
   render() {
-    const { cards, checkedShirt } = this.props;
+    const { cards, checkedShirt, gameOver } = this.props;
     return(
-      <article onClick = { (ev) => { this.checkClickedCard(ev) } }>
-        {
-          cards.map((elem,i) => {
-            return (
-              <ul key = { i } className = "images-list">
-                {
-                  elem.map((element,j) => {
-                    return (
-                      <li key = { element.id } className = { element.liStyle }>
-                        <div className = "card-front-side" urlcard ={ element.url } id = { element.id }></div>
-                        <img src = { checkedShirt } className = "card-shirt"   urlcard ={ element.url } id = { element.id } />
-                        <img src = { element.url } className = { element.cardStyle }  />
-                      </li>
-                      )
-                    }
-                  )
-                }
-              </ul>
-            )
-          })
-        }
-      </article>
+      <section className="game-container">
+        <article onClick = { (ev) => { this.checkClickedCard(ev) } }>
+          {
+            cards.map((elem,i) => {
+              return (
+                <ul key = { i } className = "images-list">
+                  {
+                    elem.map((element,j) => {
+                      return (
+                        <li key = { element.id } className = { element.liStyle }>
+                          <div className = "card-front-side" urlcard ={ element.url } id = { element.id }></div>
+                          <img src = { checkedShirt } className = "card-shirt"   urlcard ={ element.url } id = { element.id } />
+                          <img src = { element.url } className = { element.cardStyle }  />
+                        </li>
+                        )
+                      }
+                    )
+                  }
+                </ul>
+              )
+            })
+          }
+        </article>
+      </section>
     )
   }
 

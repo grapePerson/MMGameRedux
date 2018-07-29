@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 
-
 export default class CardShirt extends Component {
+
   render() {
     const { allShirts, checkedShirt, changeShirt } = this.props;
     return(
-      <section>
+      <section className = "card-shirt-container">
+        <h2>Рубашка</h2>
         <ul>
           {
             allShirts.map((elem,i) => (
@@ -19,4 +20,5 @@ export default class CardShirt extends Component {
       </section>
     )
   }
+
 }

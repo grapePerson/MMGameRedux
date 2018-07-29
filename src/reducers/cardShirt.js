@@ -9,6 +9,7 @@ const initialState = {
 
 export default function cardShirt(state = initialState,action) {
   if(action.type === CHANGE_SHIRT){
+    console.log(state);
     return {...state, checkedShirt: action.payload}
   }else {
     return state

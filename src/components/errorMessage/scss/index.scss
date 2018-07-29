@@ -1,0 +1,14 @@
+%flex{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.error-mesage{
+  height: 100%;
+  width: 100%;
+  @extend %flex;
+  p{
+    font-size: 40px;
+    color: red;
+  }
+}

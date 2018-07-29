@@ -3,7 +3,42 @@ export const importAll = (r) => {
   r.keys().map((item, index) => { images.push({ url: r(item), id: index }); });
   return images;
 }
+export const importAllAudio = (r) => {
+  let audio = [];
+  r.keys().map((item, index) => {
+    let string = item.split("/")[1].split(".")[0]
+    audio.push({ url: r(item), id: string
+    });
+  });
+  return audio;
+}
+export const compareNumeric = (a, b) => {
+  if(a.score >= 10 && b.score >= 10){
+    if (a.score < b.score) return -1;
+    if (a.score > b.score) return 1;
+  }
 
+}
+export const playAudio = (src) => {
+  document.querySelector(`#${src}`).play();
+}
+export const pauseAudio = (src) => {
+  document.querySelector(`#${src}`).pause();
+}
+export const volumeUp = (src) => {
+  let audioFile = document.querySelector(`#${src}`);
+  if(audioFile.volume !== 1){
+    let volume = ((audioFile.volume*100)+10)/100
+    audioFile.volume=volume;
+  }
+}
+export const volumeDown = (src) => {
+  let audioFile = document.querySelector(`#${src}`);
+  if(audioFile.volume !== 0){
+    let volume = ((audioFile.volume*100)-10)/100
+    audioFile.volume=volume;
+  }
+}
 export default function shuffle(arr) {
   for (let i = arr.length - 1; i > 0; i--) {
     let num = Math.floor(Math.random() * (i + 1));
@@ -14,67 +49,50 @@ export default function shuffle(arr) {
   return arr;
 }
 
-export const duplucateCards = (arr) => {
-  arr.map((elem) => {
-    elem.cardStyle = "card-back-side";
-    elem.liStyle = "card-flipper";
-    arr.push({url: elem.url, id: `${elem.id}copy`, liStyle: "card-flipper", cardStyle: "card-back-side"});
-  })
-  return arr
+export const pause = async (time) => {
+  return new Promise((resolve)=>{
+      setTimeout(resolve, time);
+  });
 }
 
-export const setDifficultForCards = (difficult , arrImg) => {
-  const gameDifficult = difficult.split(' ');
-  const pairCards = 2;
-  const cardsCount = (gameDifficult[0]*gameDifficult[2])/pairCards;
-  const cards = shuffle(arrImg).filter((elem,index) => index < cardsCount );
-  const doubleCardsDeck = duplucateCards(cards);
-  return doubleCardsDeck
-}
-
-export const createOrderCards = (difficult , arrCards) => {
-  let cards = shuffle(arrCards)
-  const gameDifficult = difficult.split(' ');
-  let ul = []
-  for (let i = 0; i < gameDifficult[2]; i++) {
-    let li = []
-    for (let j = 0; j < gameDifficult[0]; j++) {
-      let cardObject = cards.pop();
-      li.push(cardObject)
-    }
-    ul.push(li)
+class TimerClass {
+  constructor() {
+    this.hours = 0;
+    this.minutes = 0;
+    this.seconds = 0;
+    this.timeInterval = null;
   }
-  return ul
+  timerFunction() {
+    if(this.seconds <=59){
+      this.seconds++;
+    }
+    if(this.seconds===60){
+      this.seconds = 0;
+      this.minutes++;
+    }
+    if(this.minutes === 60){
+      this.hours++;
+      this.minutes =0;
+    }
+  }
+  start(){
+    this.timeInterval = setInterval(this.timerFunction.bind(this),1000);
+  }
+  stop() {
+    clearInterval(this.timeInterval);
+  }
+  get showTime() {
+    if(!this.hours){
+      return `${this.minutes}:${this.seconds}`
+    }else{
+      return `${this.hours}:${this.minutes} :${this.seconds}`
+    }
+  }
+  reset() {
+    this.hours = 0;
+    this.minutes = 0;
+    this.seconds = 0;
+  }
 }
 
-export const addFlippClass = (arrList, cardId) => {
-  arrList.map((elem, i) => {
-    elem.map((element, j) => {
-      if(element.id == cardId) {
-        element.liStyle += " do-flipp"
-      }
-    })
-  })
-  return arrList
-}
-export const addHideCardClass = (arrList, cardUrl) => {
-  arrList.map((elem, i) => {
-    elem.map((element, j) => {
-      if(element.url === cardUrl){
-        element.cardStyle += " hide-card"
-      }
-    })
-  })
-  return arrList
-}
-
-export const removeFlippClass = (arrList, checkedCard , cardId) => {
-  arrList.map((elem, i) => {
-    elem.map((element, j) => {
-      if(element.url === checkedCard.url || element.id == cardId){
-        element.liStyle = "card-flipper"
-      }
-    })
-  })
-  return arrList
-}
+export const timer = new TimerClass();

@@ -31,22 +31,21 @@ export default class RegistrationForm extends Component {
     if(!formData.some( elem => elem === false)){
       this.props.checkUserData(formData[0],formData[1]);
     }else{
-      console.log("rewrite");
+      alert("Введены некорректные данные")
     }
   }
 
   render(){
     return (
-      <form>
-        <div>
-          <label htmlFor="userName">User name</label>
-          <input type="text" ref="userName" id="userName" placeholder="от 3 до 8 символов" />
-          <label htmlFor="email">Email</label>
-          <input type="text" ref="email" id="email" placeholder="email"/>
-          <input type="button" value="Поехали" onClick = {this.takeFormDataAndStart.bind(this)}/>
-          <p>Пожалуйста введите ваши данные</p>
-        </div>
-      </form>
+      <section className = "registration-container">
+        <form>
+            <label htmlFor="userName">Имя пользователя</label>
+            <input type="text" ref="userName" id="userName" placeholder="от 3 до 8 символов" />
+            <label htmlFor="email">Email</label>
+            <input type="text" ref="email" id="email" placeholder="email"/>
+            <input type="button" value="Зарегистрироваться" onClick = {this.takeFormDataAndStart.bind(this)}/>
+        </form>
+      </section>
     )
   }
 };

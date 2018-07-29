@@ -1,4 +1,5 @@
 import { TOP_SCORE_REQUEST, TOP_SCORE_SUCCESS, TOP_SCORE_FAILED, CLOSE_SCORE } from "../constants/top";
+import { compareNumeric } from '../utils/index';
 
 export const getTopScore = () => {
   let myHeaders = new Headers();
@@ -16,8 +17,3 @@ export const getTopScore = () => {
     )
   };
 };
-
-const compareNumeric = (a, b) => {
-  if (a.score < b.score) return 1;
-  if (a.score > b.score) return -1;
-}

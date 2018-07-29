@@ -1,0 +1,36 @@
+%flex{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+header {
+  background: black;
+  color: white;
+  width: 100%;
+  height: 10%;
+  @extend %flex;
+  justify-content: space-between;
+  flex-direction: column;
+  h1 {
+    height: 50%;
+    @extend %flex;
+  }
+  nav {
+    width: 100%;
+    height: 50%;
+    box-sizing: border-box;
+    @extend %flex;
+    a {
+      color: white;
+      height: 100%;
+      @extend %flex;
+      flex-grow: 1;
+    }
+    .selected{
+      color: yellow;
+    }
+    a:hover{
+      color: yellow;
+    }
+  }
+}

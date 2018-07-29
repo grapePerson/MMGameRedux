@@ -1,0 +1,22 @@
+%flex{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.card-shirt-container{
+  width: 100%;
+  height: 100%;
+  @extend %flex;
+  flex-direction: column;
+  h2{
+    margin-bottom: 20px;
+  }
+  ul{
+    background: black;
+    height: 70%;
+    width: 10%;
+    border-radius: 20px;
+    @extend %flex;
+    flex-direction: column;
+  }
+}

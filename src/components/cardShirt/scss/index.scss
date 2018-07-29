@@ -18,5 +18,8 @@
     border-radius: 20px;
     @extend %flex;
     flex-direction: column;
+    li{
+      cursor: pointer;
+    }
   }
 }

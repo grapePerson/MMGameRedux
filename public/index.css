@@ -294,7 +294,7 @@ template, [hidden] {
  */
 @font-face {
   font-family: 'CupheadMemphisMedium';
-  src: url(/fonts/CupheadMemphisMedium.ttf);
+  src: url(./fonts/CupheadMemphisMedium.ttf);
   font-weight: normal;
   font-style: normal; }
 
@@ -558,6 +558,8 @@ header, header h1, header nav, header nav a, main, .game-rules-container, .game-
     width: 10%;
     border-radius: 20px;
     flex-direction: column; }
+    .card-shirt-container ul li {
+      cursor: pointer; }
 
 header, header h1, header nav, header nav a, main, .game-rules-container, .game-rules-container .game-rules, .game-rules-container .game-rules h2, .preloader-top, .top-score, .top-score ul, .top-score ul li, .registration-container, .registration-container form, .login-container, .login-container form, .game-container, .dificult-container, .dificult-container ul, .card-shirt-container, .card-shirt-container ul, .audio-controller-contaner, .error-mesage, .winner-text-container, .winner-text-container article {
   display: flex;
